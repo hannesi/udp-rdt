@@ -2,19 +2,20 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Reliability on top of UDP</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reliability on top of UDP</title>
 </head>
 
 <body>
     <h1>Reliability on top of UDP</h1>
 
-    <p>The links in this document point to Github commits that contain the solutions to the tasks.</p>
+    <p>This document contains links to the solutions to the tasks.</p>
 
     <h2>How to run the solutions</h2>
 
-    <p>To run the solutions you need to have the <a href="https://www.rust-lang.org/tools/install" target="_blank">Rust toolchain</a> installed.
+    <p>To run the solutions you need to have the <a href="https://www.rust-lang.org/tools/install" target="_blank">Rust
+            toolchain</a> installed.
 
     <p>To start the server, run:</p>
     <code>cargo run --bin server</code>
@@ -22,9 +23,18 @@
     <p>To start the client, run:</p>
     <code>cargo run --bin client</code>
 
+    <h2>Solutions</h2>
+
+    <p>There are two links in front of each task description. The <i>examine</i> link points to the Github commit containing the solution. The <i>download</i> link points to the release page of the solution.</p>
+
     <h3>Virtual Socket</h3>
     <ol>
-        <li><a href="#" target="_blank">Placeholder</a></li>
+        <li><a href="https://github.com/hannesi/udp-rdt/tree/virtual-socket-1" target="_blank">[Examine]</a> <a
+                href="https://github.com/hannesi/udp-rdt/releases/tag/virtual-socket-1" target="_blank">[Download]</a>
+            (2p) Make an application for testing purposes, e.g. client sends data to server and server displays it on
+            screen. It
+            is enough for the application to send data only in one direction (and later acknowledgements in the
+            other). Use the test application to test what you implement later.</li>
     </ol>
 </body>
 
