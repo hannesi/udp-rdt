@@ -1,6 +1,4 @@
-[package]
-name = "udp-rdt"
-version = "0.1.0"
-edition = "2021"
+[workspace]
 
-[dependencies]
+members = [ "client", "config", "server"]
+
