@@ -5,4 +5,5 @@ edition = "2021"
 
 [dependencies]
 config = { path = "../config" }
+virtual_socket = { path = "../virtual_socket" }
 

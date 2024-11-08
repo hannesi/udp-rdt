@@ -1,4 +1,4 @@
 [workspace]
 
-members = [ "client", "config", "server"]
+members = [ "client", "config", "server", "virtual_socket"]
 

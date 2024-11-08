@@ -1,4 +1,6 @@
-use std::net::{SocketAddr, UdpSocket};
+use std::net::SocketAddr;
+
+use virtual_socket::VirtualSocket;
 
 fn main() {
     println!("SERVER");
@@ -12,7 +14,7 @@ fn main() {
     let socket_addr: SocketAddr = addr_string
         .parse::<SocketAddr>()
         .expect("Invalid socket address.");
-    let socket: UdpSocket = UdpSocket::bind(socket_addr).expect("Failed to create UDP socket.");
+    let socket: VirtualSocket = VirtualSocket::bind(socket_addr).expect("Failed to create UDP socket.");
 
     println!(
         "Listening to messages on port {}.",
