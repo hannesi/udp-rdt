@@ -14,7 +14,7 @@ fn main() {
     let socket_addr: SocketAddr = addr_string
         .parse::<SocketAddr>()
         .expect("Invalid socket address.");
-    let socket: VirtualSocket = VirtualSocket::bind(socket_addr).expect("Failed to create UDP socket.");
+    let socket: VirtualSocket = VirtualSocket::bind(socket_addr).expect("Failed to create virtual socket.");
 
     println!(
         "Listening to messages on port {}.",
