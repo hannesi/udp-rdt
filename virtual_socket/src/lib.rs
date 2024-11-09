@@ -29,7 +29,7 @@ impl VirtualSocket {
 
         let mut rng = rand::thread_rng();
 
-        // Packet drop
+        // Drop a packet
         if rng.gen::<f64>() <= config::virtual_socket_errors::DROP_RATE {
             Self::log_socket_event("Packet dropped");
             // recursive call to return next incoming packet to simulate a packet actually getting
@@ -37,11 +37,23 @@ impl VirtualSocket {
             return self.recv(buffer);
         }
 
-        // Packet delay
+        // Delay a packet
         if rng.gen::<f64>() <= config::virtual_socket_errors::DELAY_RATE {
             Self::log_socket_event("Packet delayed");
             thread::sleep(config::virtual_socket_errors::DELAY_DURATION_MS);
         }
+
+        // Introduce a bit error
+        let packet_bit_error_rng: f64 = rng.gen();
+        if packet_bit_error_rng <= config::virtual_socket_errors::BIT_ERROR_RATE {
+            Self::log_socket_event("Bit error introduced");
+            let byte_index = rng.gen_range(0..byte_count);
+            let bit_index = rng.gen_range(0..8);
+            // introduce bit error
+            // XOR the selected byte with a mask that has the selected bit set to 1
+            buffer[byte_index] ^= 1 << bit_index;
+        }
+
 
         Ok(byte_count)
     }
