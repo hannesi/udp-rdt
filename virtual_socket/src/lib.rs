@@ -1,13 +1,6 @@
-use core::f64;
-use std::{io, net::{SocketAddr, UdpSocket}};
+use std::{net::{SocketAddr, UdpSocket}, thread};
 
 use rand::Rng;
-
-enum VirtualSocketError {
-    Drop,
-    Delay,
-    BitError
-}
 
 /// A virtual socket that simulates errors happening in udp packet transfer.
 pub struct VirtualSocket {
@@ -26,9 +19,9 @@ impl VirtualSocket {
     }
 
     /// Receive a datagram message.
-    pub fn recv(&self, buffer: &mut [u8]) -> io::Result<usize> {
+    pub fn recv(&self, buffer: &mut [u8]) -> std::io::Result<usize> {
         let res = self.socket.recv(buffer);
-        
+
         let byte_count: usize = match res {
             Ok(count) => count,
             Err(e) => return Err(e),
@@ -44,12 +37,16 @@ impl VirtualSocket {
             return self.recv(buffer);
         }
 
+        // Packet delay
+        if rng.gen::<f64>() <= config::virtual_socket_errors::DELAY_RATE {
+            Self::log_socket_event("Packet delayed");
+            thread::sleep(config::virtual_socket_errors::DELAY_DURATION_MS);
+        }
+
         Ok(byte_count)
     }
 
     fn log_socket_event(msg: &str) {
         println!("VIRTUAL SOCKET EVENT: {}", msg);
-    } 
+    }
 }
-
-
