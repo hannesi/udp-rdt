@@ -23,7 +23,7 @@ fn main() {
 
     // listen for messages
     loop {
-        let mut buffer: Vec<u8> = vec![0; 1024];
+        let mut buffer: Vec<u8> = vec![];
         let res = socket.recv(&mut buffer);
         let byte_count: usize = match res {
             Ok(count) => count,

@@ -16,6 +16,10 @@ impl RdtPacket {
             crc_byte,
         };
     }
+
+    pub fn validate_crc_byte(&self) -> bool {
+        crc::calculate_crc8_ccitt(&self.payload) == self.crc_byte
+    }
 }
 
 impl Into<Vec<u8>> for RdtPacket {
@@ -27,16 +31,19 @@ impl Into<Vec<u8>> for RdtPacket {
     }
 }
 
-impl TryFrom<Vec<u8>> for RdtPacket {
+impl TryFrom<&mut Vec<u8>> for RdtPacket {
     type Error = RdtPacketError;
 
-    fn try_from(value: Vec<u8>) -> Result<Self, Self::Error> {
+    fn try_from(value: &mut Vec<u8>) -> Result<Self, Self::Error> {
         let mut bytes = value.clone();
         let crc_byte = match bytes.pop() {
             Some(value) => value,
             None => return Err(RdtPacketError::MissingCrcByte),
         };
-        return Ok(Self { payload: bytes, crc_byte });
+        return Ok(Self {
+            payload: bytes,
+            crc_byte,
+        });
     }
 }
 

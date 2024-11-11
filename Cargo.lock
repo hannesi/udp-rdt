@@ -102,6 +102,9 @@ dependencies = [
 [[package]]
 name = "reliability-layer"
 version = "0.1.0"
+dependencies = [
+ "virtual_socket",
+]
 
 [[package]]
 name = "server"
