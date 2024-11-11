@@ -5,7 +5,7 @@ pub mod server_info {
 
 pub mod virtual_socket_errors {
     pub const BIT_ERROR_RATE: f64 = 0.25;
-    pub const DELAY_RATE: f64 = 0.25;
+    pub const DELAY_RATE: f64 = 0.0;
     pub const DELAY_DURATION_MS: std::time::Duration = std::time::Duration::from_millis(2000);
-    pub const DROP_RATE: f64 = 0.25;
+    pub const DROP_RATE: f64 = 0.0;
 }
