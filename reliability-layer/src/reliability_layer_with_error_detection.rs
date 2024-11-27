@@ -22,8 +22,7 @@ impl RDTServer for Server {
             Ok(size) => size,
             Err(_) => todo!(),
         };
-        let parsed_packet = RdtPacket::try_from(buffer);
-        let packet = match parsed_packet {
+        let packet = match RdtPacket::try_from(buffer) {
             Ok(p) => p,
             Err(_) => todo!(),
         };

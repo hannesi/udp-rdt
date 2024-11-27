@@ -1,3 +1,4 @@
+use core::str;
 use std::net::{SocketAddr, UdpSocket};
 
 fn main() {
@@ -31,6 +32,7 @@ fn main() {
                 let trimmed_msg = msg.trim();
                 println!("Sending \"{}\" to {}", trimmed_msg, dest_addr_string);
                 let buffer: &[u8] = trimmed_msg.as_bytes();
+                dbg!(buffer);
                 let res = socket.send_to(buffer, dest_socket_addr);
                 match res {
                     Ok(_) => continue,

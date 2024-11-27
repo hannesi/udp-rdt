@@ -23,7 +23,8 @@ fn main() {
 
     // listen for messages
     loop {
-        let mut buffer: Vec<u8> = vec![];
+        // buffer vec has to be initiated or it won't work with udp recv
+        let mut buffer: Vec<u8> = vec![0; 1024];
         let res = socket.recv(&mut buffer);
         let byte_count: usize = match res {
             Ok(count) => count,

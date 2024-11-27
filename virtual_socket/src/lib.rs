@@ -20,10 +20,11 @@ impl VirtualSocket {
 
     /// Receive a datagram message.
     pub fn recv(&self, buffer: &mut [u8]) -> std::io::Result<usize> {
-        let res = self.socket.recv(buffer);
+        let res = self.socket.recv_from(buffer);
+        dbg!(&res);
 
         let byte_count: usize = match res {
-            Ok(count) => count,
+            Ok(content) => content.0,
             Err(e) => return Err(e),
         };
 
@@ -45,7 +46,7 @@ impl VirtualSocket {
 
         // Introduce a bit error
         let packet_bit_error_rng: f64 = rng.gen();
-        if packet_bit_error_rng <= config::virtual_socket_errors::BIT_ERROR_RATE {
+        if byte_count > 0 && packet_bit_error_rng <= config::virtual_socket_errors::BIT_ERROR_RATE {
             Self::log_socket_event("Bit error introduced");
             let byte_index = rng.gen_range(0..byte_count);
             let bit_index = rng.gen_range(0..8);
