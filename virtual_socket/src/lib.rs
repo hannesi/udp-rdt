@@ -21,7 +21,6 @@ impl VirtualSocket {
     /// Receive a datagram message.
     pub fn recv(&self, buffer: &mut [u8]) -> std::io::Result<usize> {
         let res = self.socket.recv_from(buffer);
-        dbg!(&res);
 
         let byte_count: usize = match res {
             Ok(content) => content.0,

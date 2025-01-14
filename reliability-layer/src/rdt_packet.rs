@@ -34,16 +34,15 @@ impl Into<Vec<u8>> for RdtPacket {
 impl TryFrom<&mut Vec<u8>> for RdtPacket {
     type Error = RdtPacketError;
 
-    fn try_from(value: &mut Vec<u8>) -> Result<Self, Self::Error> {
-        let mut bytes = value.clone();
-        let crc_byte = match bytes.pop() {
-            Some(value) => value,
-            None => return Err(RdtPacketError::MissingCrcByte),
-        };
-        return Ok(Self {
-            payload: bytes,
-            crc_byte,
-        });
+    fn try_from(bytes: &mut Vec<u8>) -> Result<Self, Self::Error> {
+        if let Some(crc_byte) = bytes.pop() {
+            Ok(Self {
+                payload: bytes.to_vec(),
+                crc_byte,
+            })
+        } else {
+            Err(RdtPacketError::MissingCrcByte)
+        }
     }
 }
 
