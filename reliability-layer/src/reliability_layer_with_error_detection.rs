@@ -1,6 +1,4 @@
-use std::{
-    net::{SocketAddr, UdpSocket},
-};
+use std::net::{SocketAddr, UdpSocket};
 
 use virtual_socket::VirtualSocket;
 
@@ -27,13 +25,14 @@ impl RDTServer for Server {
         };
 
         if !packet.validate_crc_byte() {
-            print_rdt_event("Bit error detected.".to_string());            
+            print_rdt_event("Bit error detected.".to_string());
         }
-        
+
         Ok(res_size)
     }
 }
 
+// Client side handling not necessary for task 2.1
 struct Client {
     socket: UdpSocket,
 }
